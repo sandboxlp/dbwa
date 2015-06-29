@@ -19,4 +19,6 @@
             <?php }} ?>
     </main>
 
-<?php require("content/bottom.php"); ?>
+<?php require("content/bottom.php");
+//Tobi was here
+?>
