@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<?php
+include('db.php');
+include('item.class.php');
+include('order.class.php');
+
+$item = new item($db);
+$order = new order($db);
+?>
+?>
 <html>
 <head>
 <meta charset="utf-8">
