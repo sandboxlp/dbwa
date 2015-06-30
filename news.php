@@ -10,14 +10,11 @@
 
 <main>
     <h1 class="superheadline">NEWS</h1>
-    <?php
-    require("content/db.php");
-    $res = $db->query("select * from news order by n_id desc");
-    $tmp = $res->fetchAll(PDO::FETCH_ASSOC);
-    foreach($tmp as $dsatz)
-    { ?>
-    <p><?php echo $dsatz["title"]; ?></p>
-    <?php } ?>
+<?php
+    foreach($item->news_by_nid($db) as $dsatz)
+    {
+        echo '<p>'.$dsatz["title"].'</p>';
+    } ?>
 
 <?php require("content/navbar.php"); ?>
 
