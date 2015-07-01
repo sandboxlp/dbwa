@@ -1,7 +1,28 @@
+<?php
+class index {
+    public function echo_box($bez, $url) { ?>
+        <a href="<?php echo $url; ?>" class="invisible">
+            <div class="square-box">
+                <div class="square-content">
+                    <div>
+                        <span>
+                            <?php echo $bez."\n"; ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    <?php }
+}
+?>
+
 <?php require("content/top.php"); ?>
 
 <?php require("content/top2.php"); ?>
 
+<?php
+    $index = new index();
+?>
     <main>
 
         <?php
@@ -11,35 +32,37 @@
         //print_r($item->categories_by_pos());
         foreach ($item->categories_by_pos() as $dsatz) {
             if(!empty($dsatz["bez"])) { ?>
-
-                <!-- <a href="<?php //echo htmlspecialchars($dsatz["url"]) ?>" class="invisible">
-                    <div class="square-box">
-                        <div class="square-content">
-                            <div>
-                                <span>
-                                    <?php //echo $dsatz["bez"] ?>
-                                </span>
-                            </div>
+<!-- <a href="<?php //echo htmlspecialchars($dsatz["url"]) ?>" class="invisible">
+                <div class="square-box">
+                    <div class="square-content">
+                        <div>
+                            <span>
+                                <?php echo "\n"; //echo $dsatz["bez"]."\n"; ?>
+                            </span>
                         </div>
                     </div>
-                </a> -->
+                </div>
+            </a> -->
                 <?php
-                    if ($i % 3) { ?>
-                        </div>
+                    if ($i == 0) { ?>
                         <div class="row">
 
                     <?php
-                    } elseif ($i == 0) { ?>
-                            <div class="row">
-                    <?php
-
                     }
-                    echo "content";
+                    elseif ($i % 3 == 0) { ?>
+                        </div>
+                        <div class="row">
+                    <?php }
+
+                    //echo "content";
+                    $index->echo_box($dsatz["bez"], $dsatz["url"]);
+
+                    $i++;
                 ?>
 
                 <?php
             } else { ?>
-                <!--<div class="square-box transparent"></div> -->
+                <div class="square-box transparent"></div>
             <?php
             }
         } ?>

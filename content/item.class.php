@@ -13,16 +13,15 @@ class item {
     /**
      * @param $db
      */
+
     public function __construct($db){
         $this->db = $db;
     }
 
     public function categories_by_pos(){
-        /*$res = mysqli_query($db, "select * from `categories` order by `pos`;");
-        */
-        $sql = "SELECT * from `categories` ORDER BY `pos`;";
+        //$res = mysqli_query($db, "select * from `categories` order by `pos`;");
 
-        $res = $this->db->query($sql);
+        $res = $this->db->query("SELECT * from `categories` ORDER BY `pos`;");
         $result_array = array();
 
         while($dsatz = mysqli_fetch_assoc($res))
@@ -32,11 +31,10 @@ class item {
     }
 
     public function news_by_nid() {
-
-        $sql = "select * from `news` order by `n_id`;";
-        $res = $this->db->query($sql);
         //$res = mysqli_query($db, "select * from `news` order by `n_id`;");
-            $result_array = array();
+
+        $res = $this->db->query("select * from `news` order by `n_id`;");
+        $result_array = array();
 
         while($dsatz = mysqli_fetch_assoc($res))
             array_push($result_array, $dsatz);
