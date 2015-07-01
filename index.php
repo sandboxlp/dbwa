@@ -54,9 +54,18 @@ class index {
                         <div class="row">
                     <?php }
 
-                    //echo "content";
-                    $index->echo_box($dsatz["bez"], $dsatz["url"]);
-
+                    //echo "content"; ?>
+                        <a href="<?php echo $url; ?>" class="invisible">
+                            <div class="square-box">
+                                <div class="square-content">
+                                    <div>
+                                        <span>
+                                            <?php echo $bez."\n"; ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> <?php
                     $i++;
                 ?>
 
