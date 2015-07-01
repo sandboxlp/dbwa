@@ -3,17 +3,6 @@
 <?php require("content/top2.php"); ?>
 
     <main>
-        <!-- <a href="<?php //echo htmlspecialchars($dsatz["url"]) ?>" class="invisible">
-                <div class="square-box">
-                    <div class="square-content">
-                        <div>
-                            <span>
-                                <?php //echo "\n"; //echo $dsatz["bez"]."\n"; ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </a> -->
 
         <?php
         require("content/db.php");
@@ -21,20 +10,42 @@
         $i = 0;
         //print_r($item->categories_by_pos());
         foreach ($item->categories_by_pos() as $dsatz) {
-        echo "test";
             if(!empty($dsatz["bez"])) { ?>
-                <a href="<?php echo $dsatz["url"]; ?>" class="invisible">
-                    <div class="square-box">
-                        <div class="square-content">
-                            <div>
-                                <span>
-                                    <?php echo $dsatz["bez"]."\n"; ?>
-                                            Hallo das ist ein Test!
-                                </span>
-                            </div>
+<!-- <a href="<?php //echo htmlspecialchars($dsatz["url"]) ?>" class="invisible">
+                <div class="square-box">
+                    <div class="square-content">
+                        <div>
+                            <span>
+                                <?php echo "\n"; //echo $dsatz["bez"]."\n"; ?>
+                            </span>
                         </div>
                     </div>
-                </a> <?php
+                </div>
+            </a> -->
+                <?php
+                    if ($i == 0) { ?>
+                        <div class="row">
+
+                    <?php
+                    }
+                    elseif ($i % 3 == 0) { ?>
+                        </div>
+                        <div class="row">
+                    <?php }
+
+                    //echo "content"; ?>
+                        <a href="<?php echo $dsatz["url"]; ?>" class="invisible">
+                            <div class="square-box">
+                                <div class="square-content">
+                                    <div>
+                                        <span>
+                                            <?php echo $dsatz["bez"]."\n"; ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> <?php
+                    $i++;
                 ?>
 
                 <?php
