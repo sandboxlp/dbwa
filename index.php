@@ -1,28 +1,7 @@
-<?php
-class index {
-    public function echo_box($bez, $url) { ?>
-        <a href="<?php echo $url; ?>" class="invisible">
-            <div class="square-box">
-                <div class="square-content">
-                    <div>
-                        <span>
-                            <?php echo $bez."\n"; ?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </a>
-    <?php }
-}
-?>
-
 <?php require("content/top.php"); ?>
 
 <?php require("content/top2.php"); ?>
 
-<?php
-    $index = new index();
-?>
     <main>
 
         <?php
