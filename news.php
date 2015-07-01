@@ -11,7 +11,7 @@
 <main>
     <h1 class="superheadline">NEWS</h1>
 <?php
-    foreach($item->news_by_nid($db) as $dsatz)
+    foreach($item->news_by_nid() as $dsatz)
     {
         echo '<p>'.$dsatz["title"].'</p>';
     } ?>

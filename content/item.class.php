@@ -17,8 +17,12 @@ class item {
         $this->db = $db;
     }
 
-    public function categories_by_pos($db){
-        $res = mysqli_query($db, "select * from `categories` order by `pos`;");
+    public function categories_by_pos(){
+        /*$res = mysqli_query($db, "select * from `categories` order by `pos`;");
+        */
+        $sql = "SELECT * from `categories` ORDER BY `pos`;";
+
+        $res = $this->db->query($sql);
         $result_array = array();
 
         while($dsatz = mysqli_fetch_assoc($res))
@@ -27,8 +31,11 @@ class item {
         return $result_array;
     }
 
-    public function news_by_nid($db) {
-        $res = mysqli_query($db, "select * from `news` order by `n_id`;");
+    public function news_by_nid() {
+
+        $sql = "select * from `news` order by `n_id`;";
+        $res = $this->db->query($sql);
+        //$res = mysqli_query($db, "select * from `news` order by `n_id`;");
             $result_array = array();
 
         while($dsatz = mysqli_fetch_assoc($res))
