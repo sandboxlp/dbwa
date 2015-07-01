@@ -55,12 +55,12 @@ class index {
                     <?php }
 
                     //echo "content"; ?>
-                        <a href="<?php echo $url; ?>" class="invisible">
+                        <a href="<?php echo $dsatz["url"]; ?>" class="invisible">
                             <div class="square-box">
                                 <div class="square-content">
                                     <div>
                                         <span>
-                                            <?php echo $bez."\n"; ?>
+                                            <?php echo $dsatz["bez"]."\n"; ?>
                                         </span>
                                     </div>
                                 </div>
