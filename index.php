@@ -20,8 +20,7 @@
         header('Content-Type: text/html; charset=utf-8');
         $i = 0;
         //print_r($item->categories_by_pos());
-        foreach ($item->categories_by_pos() as $dsatz) {
-        echo "test";
+        foreach ($item->categories_by_pos_where('parent', 'NULL') as $dsatz) {
             if(!empty($dsatz["bez"])) { ?>
                 <a href="<?php echo $dsatz["url"]; ?>" class="invisible">
                     <div class="square-box">
@@ -29,7 +28,6 @@
                             <div>
                                 <span>
                                     <?php echo $dsatz["bez"]."\n"; ?>
-                                            Hallo das ist ein Test!
                                 </span>
                             </div>
                         </div>

@@ -1,1 +1,0 @@
-<a href="index.php"><img src="imgs/logo_256.png" class="home_img"/></a>

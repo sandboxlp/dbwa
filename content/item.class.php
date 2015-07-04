@@ -6,7 +6,7 @@
  * Time: 22:06
  */
 
-class item {
+class item { //TO GET ITEMS
 
     private $db;
 
@@ -19,11 +19,24 @@ class item {
     }
 
     public function categories_by_pos(){
-        //$res = mysqli_query($db, "select * from `categories` order by `pos`;");
+        $this->categories_by_pos_where('', '');
+    }
 
-        $res = $this->db->query("SELECT * from `categories` ORDER BY `pos`;");
+    public function categories_by_pos_where($table, $where)
+    {
+        if ($table == '')
+            $res = $this->db->query("SELECT * FROM `categories` ORDER BY `pos`;");
+        elseif ($where == 'NULL') {
+            $res = $this->db->query("SELECT * FROM `categories` WHERE `".$table."` IS NULL ORDER BY `pos`;");
+        }
+        else {
+            $stmt = $this->db->prepare("SELECT * FROM `categories` WHERE `".$table."` = ? ORDER BY `pos`;");
+            $stmt->bind_param("s", $where);
+            $stmt->execute();
+            $res = $stmt->get_result();
+        }
+
         $result_array = array();
-
         while($dsatz = mysqli_fetch_assoc($res))
             array_push($result_array, $dsatz);
 
@@ -31,11 +44,9 @@ class item {
     }
 
     public function news_by_nid() {
-        //$res = mysqli_query($db, "select * from `news` order by `n_id`;");
-
         $res = $this->db->query("select * from `news` order by `n_id`;");
-        $result_array = array();
 
+        $result_array = array();
         while($dsatz = mysqli_fetch_assoc($res))
             array_push($result_array, $dsatz);
 

@@ -21,17 +21,22 @@ p {
 /* --- MAIN --- */
 /* ------------ */
 
-.square-box {
+.square-box, .square-box-small {
     font-family: ENBAR;
     position: relative;
     width: 28.33333%;
-    overflow: visible;
+    overflow: inherit;
+    white-space: normal;
     background: #e41f0f;
     /*margin: 5.5% 0px 0px 5.5%;*/
     margin: 2.25%;
     float:left;
 }
-.square-box:before{
+.square-box-small {
+    width:20%;
+    font-size:0.8em;
+}
+.square-box:before, .square-box-small:before{
     content: "";
     display: block;
     padding-top: 100%;
