@@ -6,8 +6,8 @@ include('content/db.php');
 
 $user = new user($db);
 
-if( isset($_POST['username']) AND isset($_POST['password']) ){
-    if( $user->checkLogin($_POST['username'], $_POST['password']) ){
+if (isset($_POST['username']) AND isset($_POST['password'])) {
+    if ($user->checkLogin($_POST['username'], $_POST['password'])) {
 
         $db_array = $user->getSessionArray($_POST['username']);
 
@@ -18,7 +18,7 @@ if( isset($_POST['username']) AND isset($_POST['password']) ){
         $_SESSION['name'] = $db_array['name'];
 
         header("Location: index.php");
-    }else{
+    } else {
         $error = "LOGIN FALSCH";
     }
 }
@@ -49,7 +49,7 @@ if( isset($_POST['username']) AND isset($_POST['password']) ){
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <?php if( isset($error) ){ ?>
+            <?php if (isset($error)) { ?>
                 <div class="alert alert-danger">
                     <strong>Fehler:</strong> <?php echo $error; ?>
                 </div>
@@ -62,13 +62,15 @@ if( isset($_POST['username']) AND isset($_POST['password']) ){
                     <form role="form" method="post" action="">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Benutzername" name="username" type="text" autofocus />
+                                <input class="form-control" placeholder="Benutzername" name="username" type="text"
+                                       autofocus/>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Passwort" name="password" type="password" value="" />
+                                <input class="form-control" placeholder="Passwort" name="password" type="password"
+                                       value=""/>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Login" />
+                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
                         </fieldset>
                     </form>
                 </div>

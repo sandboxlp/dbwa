@@ -6,12 +6,13 @@
  * Time: 22:06
  */
 
-class item { //TO GET ITEMS
+class item { //(TO GET) ALL ABOUT ITEMS
 
     private $db;
 
-    /**
-     * @param $db
+    /** MECKER VON TOBI:
+     *  1. SQL-BEFEHLE WERDEN GROß GESCHRIEBEN!
+     *  2. ALLES WAS IN DIE KLASSE REIN KOMMT, WIRD ESCAPED (Du weißt nie wie blöd der User ist)
      */
 
     public function __construct($db){
@@ -22,8 +23,11 @@ class item { //TO GET ITEMS
         $this->categories_by_pos_where('', '');
     }
 
-    public function categories_by_pos_where($table, $where)
-    {
+    public function categories_by_pos_where($table, $where) {
+
+        $table = mysqli_real_escape_string($this->db, $table);
+        $where = mysqli_real_escape_string($this->db, $where);
+
         if ($table == '')
             $res = $this->db->query("SELECT * FROM `categories` ORDER BY `pos`;");
         elseif ($where == 'NULL') {
@@ -44,7 +48,8 @@ class item { //TO GET ITEMS
     }
 
     public function news_by_nid() {
-        $res = $this->db->query("select * from `news` order by `n_id`;");
+
+        $res = $this->db->query("SELECT * FROM `news` ORDER BY `n_id`;");
 
         $result_array = array();
         while($dsatz = mysqli_fetch_assoc($res))
