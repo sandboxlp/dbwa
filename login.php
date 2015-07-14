@@ -64,13 +64,66 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
                             <div class="form-group">
                                 <input class="form-control" placeholder="Benutzername" name="username" type="text"
                                        autofocus/>
+                                <p class="help-block">Benutzername</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Passwort" name="password" type="password"
                                        value=""/>
+                                <p class="help-block">Passwort</p>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <input type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
+                        </fieldset>
+                        <br>
+                        <label>Noch nicht registriert? Hier Anmelden:</label>
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Vorname" name="firstn" type="text">
+                                <p class="help-block">Vorname</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Nachname" name="lastn" type="text">
+                                <p class="help-block">Nachname</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Benutzername" name="username" type="text">
+                                <p class="help-block">Benutzername</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Ort" name="loc" type="text">
+                                <p class="help-block">Ort</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Straße" name="street" type="text">
+                                <p class="help-block">Straße</p>
+                                <input class="form-control" placeholder="Hausnummer" name="house" type="text">
+                                <p class="help-block">Hausnummer</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="TODO DROPDOWN HERE" name="c_id" type="text">
+                                <p class="help-block">TODO DROPDOWN HERE</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Email" name="email" type="email">
+                                <p class="help-block">Email</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Geburtsdatum" name="birth" type="text">
+                                <p class="help-block">Geburtsdatum</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Land" name="state" type="text">
+                                <p class="help-block">Land</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Passwort" name="pw1" type="password">
+                                <p class="help-block">Passwort</p>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Nachname" name="pw2" type="password">
+                                <p class="help-block">Passwort best&auml;tigen</p>
+                            </div>
+                            <input type="submit" class="btn btn-lg btn-danger btn-block" value="Login"/>
                         </fieldset>
                     </form>
                 </div>
