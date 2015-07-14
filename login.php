@@ -71,7 +71,6 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
                                        value=""/>
                                 <p class="help-block">Passwort</p>
                             </div>
-                            <!-- Change this to a button or input when using this as a form -->
                             <input type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
                         </fieldset>
                         <br>
@@ -100,6 +99,12 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
                                 <p class="help-block">Hausnummer</p>
                             </div>
                             <div class="form-group">
+                                <?php
+                                    foreach($user->lands() as $key){
+                                        echo $key . "<br>";
+                                    }
+                                ?>
+
                                 <input class="form-control" placeholder="TODO DROPDOWN HERE" name="c_id" type="text">
                                 <p class="help-block">TODO DROPDOWN HERE</p>
                             </div>
@@ -123,7 +128,7 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
                                 <input class="form-control" placeholder="Nachname" name="pw2" type="password">
                                 <p class="help-block">Passwort best&auml;tigen</p>
                             </div>
-                            <input type="submit" class="btn btn-lg btn-danger btn-block" value="Login"/>
+                            <input type="submit" class="btn btn-lg btn-danger btn-block" value="Registrieren"/>
                         </fieldset>
                     </form>
                 </div>
@@ -131,8 +136,5 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
         </div>
     </div>
 </div>
-
-
 </body>
-
 </html>

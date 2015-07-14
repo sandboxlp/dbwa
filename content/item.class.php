@@ -73,4 +73,6 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
         return $result_array;
     }
+
+
 }
