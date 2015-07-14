@@ -99,6 +99,7 @@ a.invisible {
     display: block;
     width: 100%;
     border-bottom: 10px solid #e41f0f;
+    text-align: center;
 }
 
 .home_img {
