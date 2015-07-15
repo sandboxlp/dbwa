@@ -7,21 +7,21 @@ include('content/db.php');
 $user = new user($db);
 
 if (isset($_POST['username']) AND isset($_POST['password'])) {
-    if ($user->checkLogin($_POST['username'], $_POST['password'])) {
-
-        $db_array = $user->getSessionArray($_POST['username']);
-
-        $_SESSION['username'] = $_POST['username'];
-        $_SESSION['email'] = $db_array['mail'];
-        $_SESSION['id'] = $db_array['id'];
-        $_SESSION['rights'] = $db_array['rights'];
-        $_SESSION['name'] = $db_array['name'];
-
-        header("Location: index.php");
-    } else {
-        $error = "LOGIN FALSCH";
+    if ($user->userExists($user->getUserId($_POST['username']))) {
+        if ($user->checkLogin($user->getUserId($_POST['username']), $_POST['password'])) {
+            $error = "Login erfolgreich. Wenn Sandy hier war, solltte hier eine Weiterleitung sein.";
+        } else {
+            $error = "MÖP MÖP MÖP... EY DA ISCH WASCH FALSCH!";
+        }
+    } elseif (isset($_POST['firstn']) AND isset($_POST['lastn']) AND isset($_POST['loc']) AND isset($_POST['pcode']) AND isset($_POST['street']) AND isset($_POST['house']) AND isset($_POST['c_id']) AND isset($_POST['email']) AND isset($_POST['birth']) AND isset($_POST['pw1']) AND isset($_POST['pw2'])) {
+        if ($_POST['pw1'] == $_POST['pw2']) {
+            $user->newUser($_POST['firstn'], $_POST['lastn'], $_POST['username'], $_POST['loc'], $_POST['pcode'], $_POST['street'], $_POST['house'], $_POST['c_id'], $_POST['email'], $_POST['birth'], 0, $_POST['pw1']);
+        } else {
+            $error = "Ey du, gugst du! Die Passwörter sind nischt gleich, alter!";
+        }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -64,11 +64,13 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
                             <div class="form-group">
                                 <input class="form-control" placeholder="Benutzername" name="username" type="text"
                                        autofocus/>
+
                                 <p class="help-block">Benutzername</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Passwort" name="password" type="password"
                                        value=""/>
+
                                 <p class="help-block">Passwort</p>
                             </div>
                             <input type="submit" class="btn btn-lg btn-success btn-block" value="Login"/>
@@ -78,54 +80,73 @@ if (isset($_POST['username']) AND isset($_POST['password'])) {
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Vorname" name="firstn" type="text">
+
                                 <p class="help-block">Vorname</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Nachname" name="lastn" type="text">
+
                                 <p class="help-block">Nachname</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Benutzername" name="username" type="text">
+
                                 <p class="help-block">Benutzername</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Ort" name="loc" type="text">
+
                                 <p class="help-block">Ort</p>
+                                <div class="form-group">
+                                <input class="form-control" placeholder="Postleitzahl" name="pcode" type="text">
+
+                                <p class="help-block">Postleitzahl</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Straße" name="street" type="text">
+
                                 <p class="help-block">Straße</p>
                                 <input class="form-control" placeholder="Hausnummer" name="house" type="text">
+
                                 <p class="help-block">Hausnummer</p>
                             </div>
                             <div class="form-group">
-                                <?php
-                                    foreach($user->lands() as $key){
-                                        echo $key . "<br>";
+                                <select name="c_id">
+                                    <?php
+                                    foreach ($user->getLands() as $key => $value) {
+                                        foreach ($value as $key2 => $value2) {
+                                            echo "<option value=" . $key . ">" . $value2 . "</option>";
+                                            echo $key2;
+                                        }
                                     }
-                                ?>
+                                    ?>
+                                </select>
 
-                                <input class="form-control" placeholder="TODO DROPDOWN HERE" name="c_id" type="text">
                                 <p class="help-block">TODO DROPDOWN HERE</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Email" name="email" type="email">
+
                                 <p class="help-block">Email</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Geburtsdatum" name="birth" type="text">
+
                                 <p class="help-block">Geburtsdatum</p>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Land" name="state" type="text">
-                                <p class="help-block">Land</p>
+                                <input class="form-control" placeholder="Status" name="state" type="text">
+
+                                <p class="help-block">STATE</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Passwort" name="pw1" type="password">
+
                                 <p class="help-block">Passwort</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Nachname" name="pw2" type="password">
+
                                 <p class="help-block">Passwort best&auml;tigen</p>
                             </div>
                             <input type="submit" class="btn btn-lg btn-danger btn-block" value="Registrieren"/>

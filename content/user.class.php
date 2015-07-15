@@ -33,13 +33,13 @@ class user {
         if( $res->num_rows >= 1 ){return true;}else{return false;}
     }
 
-    public function userNameToId($username){
+    public function getUserId($username){
 
         $username = mysqli_real_escape_string($this->db, $username);
 
-        $res = $this->db->query("SELECT `u_id` FROM `users` WHERE `u_id`='" . $id . "';");
-
-        if( $res->num_rows >= 1 ){return true;}else{return false;}
+        $res = $this->db->query("SELECT `username` FROM `users` WHERE `username`='" . $username . "';");
+        $return = $res->fetch_assoc();
+        return $return['u_id'];
     }
 
     public function newUser($firstn, $lastn, $username, $loc, $pcode, $street, $house, $c_id, $email, $birth, $state, $passwd) {
@@ -68,9 +68,26 @@ class user {
         }
     }
 
-    public function lands() {
+    public function checkLogin($userID, $passwd){
 
-        $res = $this->db->query("SELECT `name_de` FROM `countries` ORDER BY `special`;");
+        $userID = mysqli_real_escape_string($this->db, $userID);
+        $passwd = mysqli_real_escape_string($this->db, $passwd);
+
+        $passwd = $this->hashPassword($passwd);
+
+        $sql = "SELECT * FROM `users` WHERE `u_id`='" . $userID . "' AND `passwd`='" . $passwd . "';";
+        $result = $this->db->query($sql);
+
+        if( $result->num_rows >= 1 ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getLands() {
+
+        $res = $this->db->query("SELECT `name_de` FROM `countries` ORDER BY `special` DESC ;");
 
         $result_array = array();
         while($dsatz = mysqli_fetch_assoc($res))
