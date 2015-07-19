@@ -1,12 +1,16 @@
+<?php // Kontrolle - nur 10.* und 127.* - Adressen ?>
+
 <!DOCTYPE html>
 
 <?php
 include('content/db.php');
 include('content/item.class.php');
 include('content/order.class.php');
+include('content/webwirth.class.php');
 
 $item = new item($db);
 $order = new order($db);
+$webwirth = new webwirth();
 ?>
 
 <html>

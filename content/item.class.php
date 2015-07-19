@@ -74,5 +74,31 @@ class item { //(TO GET) ALL ABOUT ITEMS
         return $result_array;
     }
 
+    public function albums_by_date()
+    {
+        $res = $this->db->query("SELECT * FROM `albums` ORDER BY `date`;");
 
+        $result_array = array();
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array;
+    }
+
+    public function album_by_aid($aid)
+    {
+        $aid = mysqli_real_escape_string($this->db, $aid);
+
+        $stmt = $this->db->prepare("SELECT * FROM `albums` WHERE `a_id` = ?;");
+        $stmt->bind_param("i", $aid);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        $result_array = array();
+
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array[0];
+    }
 }

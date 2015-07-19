@@ -21,22 +21,29 @@ p {
 /* --- MAIN --- */
 /* ------------ */
 
-.square-box, .square-box-small {
+.square-box-small, .square-box-medium, .square-box-big {
     font-family: ENBAR;
     position: relative;
-    width: 28.33333%;
     overflow: inherit;
     white-space: normal;
     background: #e41f0f;
-    /*margin: 5.5% 0px 0px 5.5%;*/
-    margin: 2.25%;
     float:left;
 }
 .square-box-small {
-    width:20%;
+    width: 20%;
+    margin: 2.25%;
     font-size:0.8em;
 }
-.square-box:before, .square-box-small:before{
+.square-box-medium {
+    width: 28.33333%;
+    width: 28.33333%;
+    margin: 2.25%;
+}
+.square-box-big {
+    width: 40%;
+    margin: 5%;
+}
+.square-box-small:before, .square-box-medium:before, .square-box-big:before {
     content: "";
     display: block;
     padding-top: 100%;
@@ -108,4 +115,8 @@ a.invisible {
 
 .transparent {
     background-color: transparent;
+}
+
+.row {
+    width: 100%;
 }

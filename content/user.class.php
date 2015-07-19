@@ -36,6 +36,10 @@ class user {
     public function getUserId($username){
 
         $username = mysqli_real_escape_string($this->db, $username);
+        $password = mysqli_real_escape_string($this->db, $password);
+        $name = mysqli_real_escape_string($this->db, $name);
+        $mail = mysqli_real_escape_string($this->db, $mail);
+        $rights = mysqli_real_escape_string($this->db, $rights);
 
         $res = $this->db->query("SELECT `username` FROM `users` WHERE `username`='" . $username . "';");
         $return = $res->fetch_assoc();
@@ -63,7 +67,8 @@ class user {
             "('" . $firstn . "', '" . $lastn . "', '" . $username . "', '" . $loc . "', '" . $pcode . "', '" . $street . "', '" . $house . "', '" . $c_id . "', '" . $email . "', '" . $birth . "', '" . $state . "', '" . $passwd . "');";
         if ($this->db->query($sql)) {
             return true;
-        }else{
+        }
+        else{
             return false;
         }
     }
@@ -87,7 +92,7 @@ class user {
 
     public function getLands() {
 
-        $res = $this->db->query("SELECT `name_de` FROM `countries` ORDER BY `special` DESC ;");
+        $res = $this->db->query("SELECT `name_de` FROM `countries` ORDER BY `special` ASC ;");
 
         $result_array = array();
         while($dsatz = mysqli_fetch_assoc($res))
