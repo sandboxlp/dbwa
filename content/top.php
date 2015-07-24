@@ -7,7 +7,6 @@ include('content/db.php');
 include('content/item.class.php');
 include('content/order.class.php');
 include('content/webwirth.class.php');
-
 $item = new item($db);
 $order = new order($db);
 $webwirth = new webwirth();
@@ -16,8 +15,8 @@ $webwirth = new webwirth();
 <html>
 <head>
     <meta charset="utf-8">
+    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link href="css/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="imgs/logo_32.png" rel="shortcut icon" type="image/x-icon"/>
     <script type="text/javascript" language="JavaScript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script>

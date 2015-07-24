@@ -4,33 +4,27 @@
 
     <main>
         <?php
-        foreach ($item->categories_by_pos() as $dsatz) {
-        echo "test";
+        require("content/db.php");
+        foreach ($item->categories_by_pos_where('parent', 'NULL') as $dsatz) {
             if(!empty($dsatz["bez"])) { ?>
-                <a href="<?php echo $dsatz["url"]; ?>" >
-                    <div class="square-box">
+                <a href="<?php echo $dsatz["url"]; ?>" class="invisible">
+                    <div class="square-box-medium">
                         <div class="square-content">
                             <div>
                                 <span>
                                     <?php echo $dsatz["bez"]."\n"; ?>
-                                            Hallo das ist ein Test!
                                 </span>
                             </div>
                         </div>
                     </div>
-                </a> <?php
-                ?>
-
-                <?php
-            } else { ?>
-                <div class="square-box transparent"></div>
+                </a>
+            <?php
+            }
+            else { ?>
+                <div class="square-box-medium transparent"></div>
             <?php
             }
         } ?>
     </main>
 
-
-<?php require("content/bottom.php");
-//Tobi was here
-//Sandy was here too - 30.6
-?>
+<?php require("content/bottom.php"); ?>
