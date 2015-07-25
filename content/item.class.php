@@ -101,4 +101,15 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
         return $result_array[0];
     }
+
+    public function links_by_lid()
+    {
+        $res = $this->db->query("SELECT * FROM `links` ORDER BY `l_id`");
+
+        $result_array = array();
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array;
+    }
 }

@@ -37,7 +37,6 @@
         <div style="width: 100%; float:right;"></div>
         <br/><br/>
         <?php include("content/nav_boxes/home.php"); ?>
-        <?php include("content/nav_boxes/wishes.php"); ?>
 
     </main>
 

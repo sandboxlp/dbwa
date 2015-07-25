@@ -1,8 +1,11 @@
 <?php require("content/top.php"); ?>
-
+<script>
+                                                                                <?php                                   /** ADD AJAX FOR BILLS (id: payplease) */ ?>
+</script>
 <?php require("content/top2.php"); ?>
 
     <main>
+        <div id="categories">
         <?php
         require("content/db.php");
         foreach ($item->categories_by_pos_where('parent', 'NULL') as $dsatz) {
@@ -25,6 +28,10 @@
             <?php
             }
         } ?>
+        </div>
+        <div style="float:left; width: 100%;"></div>
+
+        <?php include("content/nav_boxes/bill.php"); ?>
     </main>
 
 <?php require("content/bottom.php"); ?>

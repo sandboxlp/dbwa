@@ -17,6 +17,10 @@ p {
     font-size: 2.5em;
 }
 
+a {
+    color: #e41f0f;
+}
+
 /* ------------ */
 /* --- MAIN --- */
 /* ------------ */
@@ -35,8 +39,7 @@ p {
     font-size:0.8em;
 }
 .square-box-medium {
-    width: 28.33333%;
-    width: 28.33333%;
+    width: 28.66666%;
     margin: 2.25%;
 }
 .square-box-big {
@@ -119,4 +122,32 @@ a.invisible {
 
 .row {
     width: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+.center a {
+    display: block;
+}
+
+.black {
+   color: black;
+}
+
+.banner-text {
+    font-family: ENBAR;
+    width: 95%;
+    margin: 20px 2.25% auto 2.25%;
+    background-color: #e41f0f;
+    float:left;
+}
+
+.white {
+    color: white;
+}
+
+.bold {
+    font-weight: bold;
 }
