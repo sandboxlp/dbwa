@@ -112,4 +112,55 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
         return $result_array;
     }
+
+    public function menu_categories_where_mid($mid)
+    {
+        $mid = mysqli_real_escape_string($this->db, $mid);
+
+        $stmt = $this->db->prepare("SELECT * FROM `menu_categories` WHERE `m_id` = ?;");
+        $stmt->bind_param("i", $mid);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        $result_array = array();
+
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array[0];
+    }
+
+    public function menu_categories_where_upper($mid)
+    {
+        $mid = mysqli_real_escape_string($this->db, $mid);
+
+        $stmt = $this->db->prepare("SELECT * FROM `menu_categories` WHERE `upper` = ?;");
+        $stmt->bind_param("i", $mid);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        $result_array = array();
+
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array;
+    }
+
+    public function products_where_mid_by_pos($mid)
+    {
+        $mid = mysqli_real_escape_string($this->db, $mid);
+
+        $stmt = $this->db->prepare("SELECT * FROM `products` WHERE `m_id` = ? ORDER BY `pos`;");
+        $stmt->bind_param("i", $mid);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        $result_array = array();
+
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array;
+    }
 }
