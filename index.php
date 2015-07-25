@@ -11,7 +11,7 @@
         foreach ($item->categories_by_pos_where('parent', 'NULL') as $dsatz) {
             if(!empty($dsatz["bez"])) { ?>
                 <a href="<?php echo $dsatz["url"]; ?>" class="">
-                    <div class="square-box-medium">
+                    <div class="square-box-medium button">
                         <div class="square-content">
                             <div>
                                 <span>
@@ -24,7 +24,7 @@
             <?php
             }
             else { ?>
-                <div class="square-box-medium"></div>
+                <div class="square-box-medium button transparent"></div>
             <?php
             }
         } ?>

@@ -1,4 +1,4 @@
-<a href="account.php" class="invisible">
+<a href="account.php">
     <div class="square-box-small">
         <div class="square-content">
             <div>

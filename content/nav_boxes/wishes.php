@@ -1,4 +1,4 @@
-<a href="wishes.php" class="invisible">
+<a href="wishes.php">
     <div class="square-box-small">
         <div class="square-content">
             <div>

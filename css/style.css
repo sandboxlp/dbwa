@@ -1,3 +1,7 @@
+* {
+    font-family: Calibri;
+}
+
 #wrapper {
 	width:100%;
 	margin:auto;
@@ -5,16 +9,16 @@
 
 h1 {
     color: #e41f0f;
-    font-size: 5em;
+    font-size: 6em;
 }
 
 h2 {
     color: #e41f0f;
-    font-size: 3.75em;
+    font-size: 4.5em;
 }
 
 p {
-    font-size: 2.5em;
+    font-size: 3em;
 }
 
 a {
@@ -26,17 +30,16 @@ a {
 /* ------------ */
 
 .square-box-small, .square-box-medium, .square-box-big {
-    font-family: ENBAR;
     position: relative;
     overflow: inherit;
     white-space: normal;
     background: #e41f0f;
     float:left;
+    border-radius: 20px;
 }
 .square-box-small {
     width: 20%;
     margin: 2.25%;
-    font-size:0.8em;
 }
 .square-box-medium {
     width: 28.66666%;
@@ -67,7 +70,7 @@ a {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    font-size: 2.5em;
+    font-size: 3em;
     font-weight: bolder;
     color: white;
 }
@@ -78,6 +81,9 @@ a {
 
 footer {
 	font-size:1.5em;
+    min-height: 25px;
+    width: 100%;
+    float: right;
 }
 
 footer img {
@@ -110,6 +116,7 @@ a.invisible {
     width: 100%;
     border-bottom: 10px solid #e41f0f;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .home_img {
@@ -137,7 +144,6 @@ a.invisible {
 }
 
 .banner-text {
-    font-family: ENBAR;
     width: 95%;
     margin: 20px 2.25% auto 2.25%;
     background-color: #e41f0f;
@@ -150,4 +156,8 @@ a.invisible {
 
 .bold {
     font-weight: bold;
+}
+
+.button {
+    border-radius: 20px;
 }

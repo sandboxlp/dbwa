@@ -1,4 +1,4 @@
-<a href="imprint.php" class="invisible">
+<a href="imprint.php">
     <div class="square-box-small">
         <div class="square-content">
             <div>
