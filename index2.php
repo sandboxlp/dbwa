@@ -5,26 +5,27 @@
     <main>
         <?php
         require("content/db.php");
+        $i = 0;
+        ?>
+        <div class="row">
+            <div class="col-xs-3 col-xs-offset-1"><?php
         foreach ($item->categories_by_pos_where('parent', 'NULL') as $dsatz) {
+            $i++;
             if(!empty($dsatz["bez"])) { ?>
-                <a href="<?php echo $dsatz["url"]; ?>" class="invisible">
-                    <div class="square-box-medium">
-                        <div class="square-content">
-                            <div>
-                                <span>
-                                    <?php echo $dsatz["bez"]."\n"; ?>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+
+                <div class="panel panel-default">Test</div>
+
+                <?php if (FALSE) { ?>
+                    </div><div class="row"> <?php
+                } ?>
+
             <?php
             }
             else { ?>
-                <div class="square-box-medium transparent"></div>
+                <!--<div class="square-box-medium"></div> --->
             <?php
             }
-        } ?>
+        } ?> </div>
     </main>
 
 <?php require("content/bottom.php"); ?>
