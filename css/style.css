@@ -24,6 +24,15 @@ p, td, th {
 a {
     color: #e41f0f;
 }
+label {
+    font-weight: normal;
+}
+
+input[type=radio], input[type=checkbox] {
+    height: 0.6em;
+    width: 0.6em;
+    margin-right: 8px;
+}
 
 /* ------------ */
 /* --- MAIN --- */
@@ -170,4 +179,20 @@ a.invisible {
 
 .button {
     border-radius: 20px;
+}
+
+.red {
+    color: #e41f0f;
+}
+
+/* */
+/* */
+/* */
+
+.btn {
+    font-size: 1em;
+}
+
+.btn-danger {
+    background-color: #e41f0f;
 }

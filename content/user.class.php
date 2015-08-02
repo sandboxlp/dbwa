@@ -18,10 +18,10 @@ class user {
         $this->db = $db;
     }
 
-    private function hashPassword($password){
+    /** CHANGE TO PRIVATE ON RELEASE */
+    public function hashPassword($password){
 
         return hash('sha512', $password);
-
     }
 
     public function userExists($id){
@@ -36,14 +36,18 @@ class user {
     public function getUserId($username){
 
         $username = mysqli_real_escape_string($this->db, $username);
-        $password = mysqli_real_escape_string($this->db, $password);
-        $name = mysqli_real_escape_string($this->db, $name);
-        $mail = mysqli_real_escape_string($this->db, $mail);
-        $rights = mysqli_real_escape_string($this->db, $rights);
+        //$password = mysqli_real_escape_string($this->db, $password);
+        //$name = mysqli_real_escape_string($this->db, $name);
+        //$mail = mysqli_real_escape_string($this->db, $mail);
+        //$rights = mysqli_real_escape_string($this->db, $rights);
 
-        $res = $this->db->query("SELECT `username` FROM `users` WHERE `username`='" . $username . "';");
-        $return = $res->fetch_assoc();
-        return $return['u_id'];
+        $res = $this->db->query("SELECT * FROM `users` WHERE `username`='" . $username . "';");
+        if(mysqli_num_rows($res)) {
+            $return = $res->fetch_assoc();
+            return $return['u_id'];
+        }
+        else
+            return -1;
     }
 
     public function newUser($firstn, $lastn, $username, $loc, $pcode, $street, $house, $c_id, $email, $birth, $state, $passwd) {
@@ -99,5 +103,23 @@ class user {
             array_push($result_array, $dsatz);
 
         return $result_array;
+    }
+
+    public function setgetRandomToken($uid) {
+        $tokenchars = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+        $token = "";
+
+        for($i = 0; $i < 15; $i++){
+            $rand = rand(0, count($tokenchars) - 1);
+            if($rand < 26)
+                if(rand(0, 1))
+                    $token .= strtolower($tokenchars[$rand]);
+            else
+                $token .= $tokenchars[$rand];
+        }
+
+        $res = $this->db->query("UPDATE `users` SET `token` = '".$token."' WHERE `u_id` = ".$uid.";");
+
+        return $token;
     }
 }
