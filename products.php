@@ -1,4 +1,10 @@
 <?php require("content/top.php"); ?>
+
+<?php
+if(isset($_GET["id"])) {
+    $category = $item->menu_categories_where_mid($_GET["id"]);
+    ?>
+
 <style>
     td {
        padding: 5px;
@@ -9,12 +15,21 @@
         width: 95%;
     }
 </style>
-<?php require("content/top2.php"); ?>
+<script>
+    <?php
 
-<?php
-if(isset($_GET["id"])) {
-    $category = $item->menu_categories_where_mid($_GET["id"]);
     ?>
+    $(document).ready(function() {
+        $(document).on("swipeleft", function(){
+            window.location = "products.php?id=<?php echo htmlspecialchars($item->products_nextpage($_GET["id"])); ?>";
+        });
+
+        $(document).on("swiperight", function(){
+            window.location = "products.php?id=<?php echo htmlspecialchars($item->products_lastpage($_GET["id"])); ?>";
+        })
+    });
+</script>
+<?php require("content/top2.php"); ?>
 
     <main>
         <h1 class="superduperheadline"><?php echo $category["title"]; ?></h1>
@@ -36,7 +51,7 @@ if(isset($_GET["id"])) {
                     <td><?php echo $dsatz["title"]; ?></td>
                     <td class="center" style="width:77px;"><input type="text" name="anz-<?php echo $dsatz["p_id"]; ?>" maxlength="1" size="1" placeholder="1" class="center" /></td>
                     <td class="center" style="width:137px;">€ <?php echo $dsatz["price"]; ?></td>
-                    <td class="center" style="width:88px;"><input type="button" name="" value=" + " /></td>
+                    <td class="center" style="width:88px;"><input type="button" name="add" value=" + " /></td>
                 </tr>
             <?php }
         ?>

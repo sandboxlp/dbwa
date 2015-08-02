@@ -163,4 +163,48 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
         return $result_array;
     }
+
+    public function products_page()
+    {
+        $res = $this->db->query("SELECT * FROM `menu_categories` mc WHERE `m_id` IN (SELECT `m_id` FROM `products`) ORDER BY (SELECT `pos` FROM `menu_categories` WHERE `m_id` = mc.`upper`), `pos`;");
+
+        $result_array = array();
+
+        while($dsatz = mysqli_fetch_assoc($res))
+            array_push($result_array, $dsatz);
+
+        return $result_array;
+    }
+
+    public function products_nextpage($mid)
+    {
+        $result_array = $this->products_page();
+
+        $mypos = 0;
+
+        while($result_array[$mypos]["m_id"] != $mid){
+            $mypos++;
+        }
+
+        if($mypos + 1 < count($result_array))
+            return $result_array[$mypos + 1]["m_id"];
+        else
+            return $result_array[0]["m_id"];
+    }
+
+    public function products_lastpage($mid)
+    {
+        $result_array = $this->products_page();
+
+        $mypos = 0;
+
+        while($result_array[$mypos]["m_id"] != $mid){
+            $mypos++;
+        }
+
+        if($mypos > 0)
+            return $result_array[$mypos - 1]["m_id"];
+        else
+            return $result_array[count($result_array) - 1]["m_id"];
+    }
 }

@@ -19,6 +19,7 @@ $webwirth = new webwirth();
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link href="imgs/logo_32.png" rel="shortcut icon" type="image/x-icon"/>
     <script type="text/javascript" language="JavaScript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="script/jquery.mobile.custom.min.js"></script>
     <script>
         $(document).ready(function () {
             if ($("#btn_cookie_ok").length > 0) {
