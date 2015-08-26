@@ -30,8 +30,8 @@
                 <input type="text" id="loc" placeholder="Wohnort" required/></p></p>
             <p>Postleitzahl*<br/>
                 <input type="text" id="pcode" placeholder="Postleitzahl" required/></p></p>
-            <p>Straﬂe*<br/>
-                <input type="text" id="street" placeholder="Straﬂe" required/></p></p>
+            <p>Stra&szlig;e*<br/>
+                <input type="text" id="street" placeholder="Stra&szlig;e" required/></p></p>
             <p>Hausnummer*<br/>
                 <input type="number" id="house" placeholder="Hausnummer" required/></p></p>
             <p>Land*<br/>
@@ -53,7 +53,7 @@
                 <input type="password" id="password" placeholder="Passwort" required/></p></p>
             <p>Passwort wiederholen*<br/>
                 <input type="password" id="password2" placeholder="Passwort wiederholen" required/></p><br/><br/>
-            <p><input type="submit" id="submit" value="Registrieren" class="btn btn-danger"/></p>
+            <p><input type="button" id="submit" value="Registrieren" class="btn btn-danger"/></p>
 
         </form></div>
     </main>

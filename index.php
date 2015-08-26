@@ -1,6 +1,21 @@
 <?php require("content/top.php"); ?>
 <script>
-                                                                                <?php                                   /** ADD AJAX FOR BILLS (id: payplease) */ ?>
+    $(document).ready(function(){
+        $("#payplease").click(function(){
+            $.ajax({
+                url:"apis/payplease.php",
+                success: function(data) {
+                    if(data)
+                        alert("Ein Kellner wird in kürze zahlen kommen.");
+                    else
+                        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+                },
+                error: function() {
+                    alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.");
+                }
+            });
+        });
+    });
 </script>
 <?php require("content/top2.php"); ?>
 
@@ -15,7 +30,20 @@
                         <div class="square-content">
                             <div>
                                 <span>
-                                    <?php echo $dsatz["bez"]."\n"; ?>
+                                    <?php
+                                    //session_start();
+                                    if($dsatz["bez"] == "999901") {
+                                        if(!empty($_SESSION["uid"]) && !empty($_SESSION["token"]))
+                                            if($user->checkToken($_SESSION["uid"], $_SESSION["token"]))
+                                                echo "Konto\n".$user->getUsername($_SESSION["uid"]);
+                                            else
+                                                echo "Einloggen/Registrieren";
+                                        else
+                                            echo "Einloggen/Registrieren";
+                                    }
+                                    else
+                                        echo $dsatz["bez"]."\n";
+                                    ?>
                                 </span>
                             </div>
                         </div>
@@ -31,7 +59,11 @@
         </div>
         <div style="float:left; width: 100%;"></div>
 
-        <?php include("content/nav_boxes/bill.php"); ?>
+        <?php
+        if(!empty($_SESSION["uid"]) && !empty($_SESSION["token"]))
+            if($user->checkToken($_SESSION["uid"], $_SESSION["token"]) && $user->showPayPlease($_SESSION["uid"]))
+                include("content/nav_boxes/bill_please.php");
+        ?>
     </main>
 
 <?php require("content/bottom.php"); ?>

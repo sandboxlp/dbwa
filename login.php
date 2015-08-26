@@ -21,6 +21,7 @@
             if($("#cookie").prop("checked")) {
                 if ($(this).val() == "Einloggen") {
                     /** AJAX LOGIN */
+                    //alert("username=" + $("#username").val() + "&password=" + $("#password").val());
                     $.ajax({
                         url: "apis/login.api.php",
                         type: "POST",
@@ -29,7 +30,12 @@
                             //alert(data);
                             if (data == "true") {
                                 alert("Sie wurden erfolgreich angemeldet.");
-                                window.location.href = "index.php";
+                                <?php
+                                    if(!empty($_GET["url"]))
+                                        echo "window.location.href = \"".$_GET["url"]."\";";
+                                    else
+                                        echo "window.location.href = \"index.php\";";
+                                ?>
                             }
                             else {
                                 alert("Benutzername und Passwort stimmen nicht überein!");

@@ -12,6 +12,7 @@ if(isset($_GET["id"])) {
 
 <main>
     <h1 class="superduperheadline"><?php echo $category["title"]; ?></h1>
+    <div>
 <?php
 foreach($beneath as $dsatz) {
     $beneather = $item->menu_categories_where_upper($dsatz["m_id"]);
@@ -33,6 +34,11 @@ foreach($beneath as $dsatz) {
         </div>
     </a>
 <?php } ?>
+    </div>
+    <div style="float: right; width: 100%;"></div>
+    <br/><br/>
+    <?php include("content/nav_boxes/home.php"); ?>
+    <?php include("content/nav_boxes/bill.php"); ?>
 </main>
 
 <?php

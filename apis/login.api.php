@@ -8,15 +8,15 @@
 
     if($user->checkLogin($user->getUserId($username), $password)) {
         $token = $user->setgetRandomToken($user->getUserId($username));
-        if(setcookie("uid", $user->getUserId($username), time() + 31536000) && setcookie("token", $token, time() + 31536000)) {
-            session_start();
-            $_SESSION["uid"] = $user->getUserId($username);
-            $_SESSION["token"] = $token;
-
-            echo "true";
+        session_start();
+        $_SESSION["uid"] = $user->getUserId($username);
+        $_SESSION["token"] = $token;
+        $_SESSION["checked"] = true;
+        if($user->setCookie($user->getUserID($username))) {
+            setcookie("uid", $user->getUserId($username), time() + 31536000);
+            setcookie("token", $token, time() + 31536000);
         }
-        else
-            echo "false";
+        echo "true";
     }
     else
         echo "false";

@@ -19,7 +19,7 @@ class user {
     }
 
     /** CHANGE TO PRIVATE ON RELEASE */
-    public function hashPassword($password){
+    private function hashPassword($password){
 
         return hash('sha512', $password);
     }
@@ -118,8 +118,62 @@ class user {
                 $token .= $tokenchars[$rand];
         }
 
-        $res = $this->db->query("UPDATE `users` SET `token` = '".$token."' WHERE `u_id` = ".$uid.";");
+        $uid = mysqli_real_escape_string($this->db, $uid);
+        $this->db->query("UPDATE `users` SET `token` = '".$token."' WHERE `u_id` = ".$uid.";");
 
         return $token;
+    }
+
+    public function setCookie($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+        return $this->db->query("SELECT `cookies` FROM `users` WHERE `u_id` = ".$uid.";");
+    }
+
+    public function checkToken($uid, $token) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+        $token = mysqli_real_escape_string($this->db, $token);
+
+        $res = $this->db->query("SELECT * FROM `users` WHERE `u_id` = ".$uid." AND `token` = '".$token."';");
+
+        if($res != null)
+            return "true";
+        else
+            return "false";
+
+    }
+
+    public function showPayPlease($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT * FROM `bills` WHERE `u_id` = ".$uid." AND `status` != 3;");
+        if($res->num_rows) {
+            $res = $this->db->query("SELECT * FROM `bills_products` WHERE `b_id` = (SELECT `b_id` FROM `bills` WHERE `u_id` = " . $uid . ") AND `status` = 0");
+
+            if ($res)
+                return 0;
+            else
+                return 1;
+        }
+        else
+            return 0;
+    }
+
+    public function payPlease($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("UPDATE `bills` SET `status` = 3 WHERE `u_id` = ".$uid." AND `b_id` NOT IN (SELECT `b_id` FROM `bills_products` WHERE `status` < 2)");
+
+        if($res->num_rows > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public function getUsername($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `username` FROM `users` WHERE `u_id` = ".$uid.";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["username"];
     }
 }
