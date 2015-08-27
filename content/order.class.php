@@ -28,12 +28,23 @@ class order {
         if($res->num_rows) {
             $dsatz = mysqli_fetch_assoc($res);
             $bid = $dsatz["b_id"];
-            $res = $this->db->query("INSERT INTO `bills_products`(`b_id`, `p_id`, `count`) VALUES(".$bid.", ".$pid.", ".$count.");");
 
-            if($res)
-                return "true";
-            else
-                return "false";
+            $res = $this->db->query("SELECT `bp_id` FROM `bills_products` WHERE `b_id` = ".$bid." AND `p_id` = ".$pid.";");
+            if($dsatz = mysqli_fetch_assoc($res)) {
+                $res = $this->db->query("UPDATE `bills_products` SET `count` = `count` + ".$count." WHERE `bp_id` = ".$dsatz["bp_id"].";");
+                if($res)
+                    return "1";
+                else
+                    return "0";
+            }
+            else {
+                $res = $this->db->query("INSERT INTO `bills_products`(`b_id`, `p_id`, `count`) VALUES(" . $bid . ", " . $pid . ", " . $count . ");");
+
+                if ($res)
+                    return "1";
+                else
+                    return "0";
+            }
         }
 
         else {
@@ -49,7 +60,10 @@ class order {
             $bid = $dsatz["b_id"];
             $res = $this->db->query("INSERT INTO `bills_products`(`b_id`, `p_id`, `count`) VALUES(".$bid.", ".$pid.", ".$count.");");
 
-            return $res;
+            if($res)
+                return "1";
+            else
+                return "0";
         }
     }
 }

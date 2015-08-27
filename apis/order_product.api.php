@@ -12,5 +12,5 @@ if(!empty($_POST["pid"]) && !empty($_POST["count"])) {
         echo "2";
 }
 else
-    echo "false";
+    echo "0";
 ?>

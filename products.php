@@ -40,7 +40,7 @@ if(isset($_GET["id"])) {
                 data:"pid=" + pid + "&count=" + count,
                 success: function(data){
                     //alert(data);
-                    if(data) {
+                    if(data == "1") {
                         btn.animate({backgroundColor: "#00A300", borderColor: "#00A300"}, 500);
                         btn.animate({backgroundColor: "#DDD", borderColor: "#DDD"}, 500);
                     }

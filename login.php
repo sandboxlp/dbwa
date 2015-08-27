@@ -1,4 +1,10 @@
 <?php require("content/top.php"); ?>
+<?php
+    if(isset($_SESSION["uid"]) && isset($_SESSION["token"]))
+        if($user->checkToken($_SESSION["uid"], $_SESSION["token"])) {
+            header("Location: account.php");
+        }
+?>
 <style>
     #fields {
         margin: auto;
@@ -6,6 +12,7 @@
     }
 </style>
 <script>
+
     function select_log() {
         $("#password").prop("disabled", false);
         $("#submit").prop("value", "Einloggen");
@@ -49,7 +56,7 @@
                 }
                 else {
                     /** REDIRECT REG */
-                    window.location.href = "reg.php?username=" + $("#username").val();
+                    window.location.href = "reg.php?username=" + $("#username").val()<?php if(!empty($_GET["url"])) echo " + \"&url=".$_GET["url"]."\""; ?>;
                 }
             }
             else {

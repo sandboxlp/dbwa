@@ -50,7 +50,7 @@ class user {
             return -1;
     }
 
-    public function newUser($firstn, $lastn, $username, $loc, $pcode, $street, $house, $c_id, $email, $birth, $state, $passwd) {
+    public function newUser($firstn, $lastn, $username, $loc, $pcode, $street, $house, $c_id, $email, $birth, $passwd) {
 
         $firstn = mysqli_real_escape_string($this->db, $firstn);
         $lastn = mysqli_real_escape_string($this->db, $lastn);
@@ -62,18 +62,17 @@ class user {
         $c_id = mysqli_real_escape_string($this->db, $c_id);
         $email = mysqli_real_escape_string($this->db, $email);
         $birth = mysqli_real_escape_string($this->db, $birth);
-        $state = mysqli_real_escape_string($this->db, $state);
         $passwd = mysqli_real_escape_string($this->db, $passwd);
 
         $passwd = $this->hashPassword($passwd);
 
-        $sql = 	"INSERT INTO `user` (firstn, lastn, username, loc, pcode, street, house, c_id, email, birth, state, passwd) VALUES" .
-            "('" . $firstn . "', '" . $lastn . "', '" . $username . "', '" . $loc . "', '" . $pcode . "', '" . $street . "', '" . $house . "', '" . $c_id . "', '" . $email . "', '" . $birth . "', '" . $state . "', '" . $passwd . "');";
+        $sql = 	"INSERT INTO `users` (firstn, lastn, username, loc, pcode, street, house, c_id, email, birth, passwd) VALUES" .
+            "('" . $firstn . "', '" . $lastn . "', '" . $username . "', '" . $loc . "', '" . $pcode . "', '" . $street . "', '" . $house . "', '" . $c_id . "', '" . $email . "', '" . $birth . "', '" . $passwd . "');";
         if ($this->db->query($sql)) {
-            return true;
+            return "1";
         }
         else{
-            return false;
+            return "0";
         }
     }
 
@@ -96,7 +95,7 @@ class user {
 
     public function getLands() {
 
-        $res = $this->db->query("SELECT `name_de` FROM `countries` ORDER BY `special` ASC ;");
+        $res = $this->db->query("SELECT `c_id`, `name_de` FROM `countries` ORDER BY `special` ASC ;");
 
         $result_array = array();
         while($dsatz = mysqli_fetch_assoc($res))
@@ -135,38 +134,33 @@ class user {
 
         $res = $this->db->query("SELECT * FROM `users` WHERE `u_id` = ".$uid." AND `token` = '".$token."';");
 
-        if($res != null)
-            return "true";
+        if($dsatz = mysqli_fetch_assoc($res))
+            return "1";
         else
-            return "false";
+            return "0";
 
     }
 
     public function showPayPlease($uid) {
         $uid = mysqli_real_escape_string($this->db, $uid);
 
-        $res = $this->db->query("SELECT * FROM `bills` WHERE `u_id` = ".$uid." AND `status` != 3;");
-        if($res->num_rows) {
-            $res = $this->db->query("SELECT * FROM `bills_products` WHERE `b_id` = (SELECT `b_id` FROM `bills` WHERE `u_id` = " . $uid . ") AND `status` = 0");
+        $res = $this->db->query("SELECT `b_id` FROM `bills` WHERE `u_id` = ".$uid." AND `status` = 2 AND `b_id` NOT IN (SELECT `b_id` FROM `bills_products` WHERE `served` = 0);");
 
-            if ($res)
-                return 0;
-            else
-                return 1;
-        }
+        if($dsatz = mysqli_fetch_assoc($res))
+            return $dsatz["b_id"];
         else
-            return 0;
+            return "0";
     }
 
     public function payPlease($uid) {
         $uid = mysqli_real_escape_string($this->db, $uid);
 
-        $res = $this->db->query("UPDATE `bills` SET `status` = 3 WHERE `u_id` = ".$uid." AND `b_id` NOT IN (SELECT `b_id` FROM `bills_products` WHERE `status` < 2)");
+        $res = $this->db->query("UPDATE `bills` SET `status` = 3 WHERE `b_id` = ".$this->showPayPlease($uid).";");
 
-        if($res->num_rows > 0)
-            return true;
+        if($res)
+            return "1";
         else
-            return false;
+            return "0";
     }
 
     public function getUsername($uid) {

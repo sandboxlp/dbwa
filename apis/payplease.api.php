@@ -6,12 +6,12 @@ if(!empty($_SESSION["uid"]) && !empty($_SESSION["token"])) {
     $user = new user($db);
 
     if($user->checkToken($_SESSION["uid"], $_SESSION["token"])) {
-        if($user->payPlease($uid))
-            echo "true";
+        if($user->payPlease($_SESSION["uid"]))
+            echo "1";
         else
-            echo "false";
+            echo "0";
     }
 }
 else
-    echo "false";
+    echo "0";
 ?>
