@@ -1,4 +1,11 @@
 <?php require("content/top.php"); ?>
+<?php
+if(isset($_SESSION["uid"]) && isset($_SESSION["token"]))
+    if($user->checkToken($_SESSION["uid"], $_SESSION["token"])) {
+        header("Location: account.php");
+        die();
+    }
+?>
     <style>
         #fields {
             margin: auto;
@@ -100,7 +107,7 @@
                 $.ajax({
                     url:"./apis/reg.api.php",
                     type:"POST",
-                    data:"username="+username+"&firstn="+firstn+"&lastn="+lastn+"&nickn="+nickn+"&loc="+loc+"&pcode="+pcode+"&street="+street+"&house="+house+"&country="+country+"&birth="+birth+"&email="+email+"&password="+passwd1,
+                    data:"username="+username+"&firstn="+firstn+"&lastn="+lastn+"&nickn="+nickn+"&loc="+loc+"&pcode="+pcode+"&street="+street+"&house="+house+"&country="+country+"&birth="+birth+"&email="+email+"&password="+passwd1+"$cookies="+$("#cookies").val(),
                     success:function(data) {
                         //alert(data);
                         if(data == "1") {
@@ -164,6 +171,7 @@
                 <input type="password" id="password" placeholder="Passwort" required/></p></p>
             <p>Passwort wiederholen*<br/>
                 <input type="password" id="password2" placeholder="Passwort wiederholen" required/></p><br/><br/>
+            <p><input type="checkbox" id="cookies"/><label for="cookie" id="cookie-label">Eingeloggt bleiben? (Cookies erlauben?)</label></p>
             <p><input type="button" id="submit" value="Registrieren" class="btn btn-danger"/></p>
 
         </form></div>

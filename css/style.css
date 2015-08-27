@@ -17,7 +17,7 @@ h2 {
     font-size: 4.5em;
 }
 
-p, td, th {
+p, td, th, span, span[display=inline-block] {
     font-size: 3em;
 }
 

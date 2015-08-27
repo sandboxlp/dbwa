@@ -25,6 +25,23 @@ if(!empty($_SESSION["checked"])) {
     $_SESSION["checked"] = true;
 }
 
+if(isset($_SESSION["uid"]) && isset($_SESSION["token"])) {
+    if (!$user->checkToken($_SESSION["uid"], $_SESSION["token"])) {
+        session_destroy();
+        session_start();
+        $_SESSION["checked"] = true;
+        if (!empty($_COOKIE["uid"])) {
+            unset($_COOKIE["uid"]);
+            setcookie("uid", null, -1);
+        }
+        if (!empty($_COOKIE["token"])) {
+            unset($_COOKIE["uid"]);
+            setcookie("uid", null, -1);
+        }
+    }
+}
+
+
 ?>
 
 <html>

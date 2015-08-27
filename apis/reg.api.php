@@ -15,7 +15,7 @@ if($reg = "1") {
         $_SESSION["uid"] = $user->getUserId($username);
         $_SESSION["token"] = $token;
         $_SESSION["checked"] = true;
-        if($user->setCookie($user->getUserID($username))) {
+        if($_POST["cookies"]) {
             setcookie("uid", $user->getUserId($username), time() + 31536000);
             setcookie("token", $token, time() + 31536000);
         }

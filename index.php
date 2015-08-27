@@ -33,7 +33,6 @@
                             <div>
                                 <span>
                                     <?php
-                                    //session_start();
                                     if($dsatz["bez"] == "999901") {
                                         if(!empty($_SESSION["uid"]) && !empty($_SESSION["token"])) {
 

@@ -1,4 +1,4 @@
-<a href="bill.php">
+<a href="bills.php">
     <div class="square-box-small">
         <div class="square-content">
             <div>

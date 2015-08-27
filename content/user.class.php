@@ -18,7 +18,6 @@ class user {
         $this->db = $db;
     }
 
-    /** CHANGE TO PRIVATE ON RELEASE */
     private function hashPassword($password){
 
         return hash('sha512', $password);
@@ -36,10 +35,6 @@ class user {
     public function getUserId($username){
 
         $username = mysqli_real_escape_string($this->db, $username);
-        //$password = mysqli_real_escape_string($this->db, $password);
-        //$name = mysqli_real_escape_string($this->db, $name);
-        //$mail = mysqli_real_escape_string($this->db, $mail);
-        //$rights = mysqli_real_escape_string($this->db, $rights);
 
         $res = $this->db->query("SELECT * FROM `users` WHERE `username`='" . $username . "';");
         if(mysqli_num_rows($res)) {
@@ -68,12 +63,17 @@ class user {
 
         $sql = 	"INSERT INTO `users` (firstn, lastn, username, loc, pcode, street, house, c_id, email, birth, passwd) VALUES" .
             "('" . $firstn . "', '" . $lastn . "', '" . $username . "', '" . $loc . "', '" . $pcode . "', '" . $street . "', '" . $house . "', '" . $c_id . "', '" . $email . "', '" . $birth . "', '" . $passwd . "');";
-        if ($this->db->query($sql)) {
-            return "1";
-        }
-        else{
+        if (!$this->db->query($sql)) {
             return "0";
         }
+
+        // ===============================
+        // ===============================
+        // ==== SEND EMAIL + SAVE KEY ====
+        // ===============================
+        // ===============================
+
+        return "1";
     }
 
     public function checkLogin($userID, $passwd){
@@ -123,11 +123,6 @@ class user {
         return $token;
     }
 
-    public function setCookie($uid) {
-        $uid = mysqli_real_escape_string($this->db, $uid);
-        return $this->db->query("SELECT `cookies` FROM `users` WHERE `u_id` = ".$uid.";");
-    }
-
     public function checkToken($uid, $token) {
         $uid = mysqli_real_escape_string($this->db, $uid);
         $token = mysqli_real_escape_string($this->db, $token);
@@ -166,8 +161,100 @@ class user {
     public function getUsername($uid) {
         $uid = mysqli_real_escape_string($this->db, $uid);
 
-        $res = $this->db->query("SELECT `username` FROM `users` WHERE `u_id` = ".$uid.";");
+        $res = $this->db->query("SELECT `username` FROM `users` WHERE `u_id` = " . $uid . ";");
         $dsatz = mysqli_fetch_assoc($res);
         return $dsatz["username"];
+    }
+
+    public function getFirstn($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `firstn` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["firstn"];
+    }
+
+    public function getLastn($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `lastn` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["lastn"];
+    }
+
+    public function getNickn($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `nickn` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        if($dsatz["nickn"] == null)
+            return "/";
+        else
+            return $dsatz["nickn"];
+    }
+
+    public function getLoc($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `loc` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["loc"];
+    }
+
+    public function getPcode($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `pcode` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["pcode"];
+    }
+
+    public function getStreet($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `street` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["street"];
+    }
+
+    public function getHouse($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `house` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["house"];
+    }
+
+    public function getCountry($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `name_de` FROM `countries` WHERE `c_id` = (SELECT `c_id` FROM `users` WHERE `u_id` = " . $uid . ");");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["name_de"];
+    }
+
+    public function getEmail($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `email` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["email"];
+    }
+
+    public function getBirth($uid){
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `birth` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        $birth_arr = explode("-", $dsatz["birth"]);
+        return $birth_arr[2].". ".$birth_arr[1].". ".$birth_arr[0];
+    }
+
+    public function getStatus($uid) {
+        $uid = mysqli_real_escape_string($this->db, $uid);
+
+        $res = $this->db->query("SELECT `state` FROM `users` WHERE `u_id` = " . $uid . ";");
+        $dsatz = mysqli_fetch_assoc($res);
+        return $dsatz["state"];
     }
 }
