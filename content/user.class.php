@@ -107,10 +107,11 @@ class user {
     public function setgetRandomToken($uid) {
         $tokenchars = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
         $token = "";
+        //$token = "rzScABcdbudG";
 
         for($i = 0; $i < 15; $i++){
             $rand = rand(0, count($tokenchars) - 1);
-            if($rand < 26)
+           if($rand < 26)
                 if(rand(0, 1))
                     $token .= strtolower($tokenchars[$rand]);
             else
@@ -256,5 +257,52 @@ class user {
         $res = $this->db->query("SELECT `state` FROM `users` WHERE `u_id` = " . $uid . ";");
         $dsatz = mysqli_fetch_assoc($res);
         return $dsatz["state"];
+    }
+
+    //changeUserData($_POST["username"], $_POST["firstn"], $_POST["lastn"], $_POST["nickn"], $_POST["loc"], $_POST["pcode"], $_POST["street"], $_POST["house"], $_POST["country"], $_POST["email"], $_POST["birth"], $_POST["token"]);
+    public function changeUserData($uid, $username, $firstn, $lastn, $nickn, $loc, $pcode, $street, $house, $country, $email, $birth, $token){
+        if($this->checkToken($uid, $token)) {
+            $data = array();
+            if(!empty($username) && $username != "undefined")
+                array_push($data, array("username","'".$username."'"));
+            if(!empty($firstn) && $firstn != "undefined")
+                array_push($data, array("firstn", "'".$firstn."'"));
+            if(!empty($lastn) && $lastn != "undefined")
+                array_push($data, array("lastn", "'".$lastn."'"));
+            if(!empty($nickn) && $nickn != "undefined" && $nickn != "/")
+                array_push($data, array("nickn", "'".$nickn."'"));
+            else
+                array_push($data, array("nickn", "null"));
+            if(!empty($loc && $loc != "undefined"))
+                array_push($data, array("loc", "'".$loc."'"));
+            if(!empty($pcode) && $pcode != "undefined")
+                array_push($data, array("pcode", $pcode));
+            if(!empty($street) && $street != "undefined")
+                array_push($data, array("street", "'".$street."'"));
+            if(!empty($house) && $house != "undefined")
+                array_push($data, array("house", "'".$house."'"));
+            if(!empty($country) && $country != "undefined")
+                array_push($data, array("c_id", $country));
+            if(!empty($email) && $email != "undefined")
+                array_push($data, array("email", "'".$email."'"));
+            if(!empty($birth) && $birth != "undefined")
+                array_push($data, array("birth", "'".$birth."'"));
+
+            $query = "";
+            for($x=0; $x<count($data); $x++) {
+                if($x != 0) {
+                    $query.= ", ";
+                }
+                $query.="`".$data[$x][0]."`=".$data[$x][1];
+            }
+
+            $res = $this->db->query("UPDATE `users` SET ".$query." WHERE `u_id` = ".$uid.";");
+            if($res)
+                return "true";
+            else
+                return "false";
+        }
+        else
+            return "false";
     }
 }

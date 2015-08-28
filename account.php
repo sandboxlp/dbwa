@@ -67,20 +67,52 @@ if(!$loggedin) {
             //$("#birth").html('<input type="date" value="' + $("#birth").text() + '"/>');
             var date = $("#birth").text();
             var dates = date.split(".");
-            $("#birth").html('<input type="date" value="' + dates[2].trim() + "-" + dates[1].trim() + "-" + dates[0].trim() + '"/>');
+            $("#birth").html('<input type="date" id="birthIN" value="' + dates[2].trim() + "-" + dates[1].trim() + "-" + dates[0].trim() + '"/>');
 
 
-            $("#username").html('<input type="text" value="' + $("#username").text() + '"/>');
-            $("#firstn").html('<input type="text" value="' + $("#firstn").text() + '"/>');
-            $("#lastn").html('<input type="text" value="' + $("#lastn").text() + '"/>');
-            $("#nickn").html('<input type="text" value="' + $("#nickn").text() + '"/>');
-            $("#loc").html('<input type="text" value="' + $("#loc").text() + '"/>');
-            $("#pcode").html('<input type="number" value="' + $("#pcode").text() + '"/>');
-            $("#street").html('<input type="text" value="' + $("#street").text() + '"/>');
-            $("#house").html('<input type="text" value="' + $("#house").text() + '"/>');
-            $("#email").html('<input type="text" value="' + $("#email").text() + '"/>');
+            $("#username").html('<input type="text" id="usernameIN" value="' + $("#username").text() + '"/>');
+            $("#firstn").html('<input type="text" id="firstnIN" value="' + $("#firstn").text() + '"/>');
+            $("#lastn").html('<input type="text" id="lastnIN" value="' + $("#lastn").text() + '"/>');
+            $("#nickn").html('<input type="text" id="nicknIN" value="' + $("#nickn").text() + '"/>');
+            $("#loc").html('<input type="text" id="locIN" value="' + $("#loc").text() + '"/>');
+            $("#pcode").html('<input type="number" id="pcodeIN" value="' + $("#pcode").text() + '"/>');
+            $("#street").html('<input type="text" id="streetIN" value="' + $("#street").text() + '"/>');
+            $("#house").html('<input type="text" id="houseIN" value="' + $("#house").text() + '"/>');
+            $("#email").html('<input type="text" id="emailIN" value="' + $("#email").text() + '"/>');
             $(this).hide();
             $("#saveData").show();
+        });
+
+        $("#saveData").click(function(){
+            var username = $("#usernameIN").val();
+            var firstn = $("#firstnIN").val();
+            var lastn = $("#lastnIN").val();
+            var nickn = $("#nicknIN").val();
+            var loc = $("#locIN").val();
+            var pcode = $("#pcodeIN").val();
+            var street = $("#streetIN").val();
+            var house = $("#houseIN").val();
+            var email = $("#emailIN").val();
+            var birth = $("#birthIN").val();
+            var country = $("#countryIN").val();
+            //alert("username="+username+"&firstn="+firstn+"&lastn="+lastn+"&nickn="+nickn+"&loc="+loc+"&pcode="+pcode+"&street="+street+"&house="+house+"&country="+country+"&birth="+birth+"&email="+email+"&token=<?php echo $_SESSION["token"]; ?>");
+            $.ajax({
+                url:"apis/changeUserData.api.php",
+                type:"POST",
+                data:"username="+username+"&firstn="+firstn+"&lastn="+lastn+"&nickn="+nickn+"&loc="+loc+"&pcode="+pcode+"&street="+street+"&house="+house+"&country="+country+"&birth="+birth+"&email="+email+"&token=<?php echo $_SESSION["token"]; ?>",
+                success:function(data) {
+                    //alert(data);
+                    if(data == "true") {
+                        location.reload();
+                    }
+                    else {
+                        alert("Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut!");
+                    }
+                },
+                error:function(){
+                    alert("Ein unbekannter Fehler ist aufgetreten. Bitte laden Sie die Seite neu und versuchen Sie es erneut!");
+                }
+            });
         });
     });
 </script>
