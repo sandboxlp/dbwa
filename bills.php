@@ -7,7 +7,7 @@
 ?>
 <style>
     #content {
-        padding: 0px 1em;
+        padding: 0 1em;
     }
     
     h2 {
@@ -16,11 +16,7 @@
     }
 
     th {
-        padding: 0px 0.75em;
-    }
-
-    .add {
-        padding: 4px;
+        padding: 0 0.75em;
     }
 
     .served {
@@ -92,7 +88,7 @@
 
         $(".oldBill").click(function(){
             var myOldBill = $(this);
-            if($("#bill" + $(myOldBill).data("bid")).html() == "")
+            if($("#bill" + $(this).data("bid")).html() == "")
             {
                 $.ajax({
                     url: "apis/getOldBill.api.php",
@@ -137,10 +133,9 @@
                 $products = $order->getProducts($order->getCurrentBill($_SESSION["uid"]));
                 if(!empty($products)) {
                     foreach($products as $dsatz) {
-                        echo "<tr";
                         if($dsatz["served"] == 1)
-                            echo ' class="served"';
-                        echo "><td>" . $order->getProductName($dsatz["p_id"]) . "</td><td class=\"center\">";
+                            echo '<tr class="served">';
+                        echo "<tr><td>" . $order->getProductName($dsatz["p_id"]) . "</td><td class=\"center\">";
                         if($dsatz["served"] == 0 && $order->getBillStatus($order->getCurrentBill($_SESSION["uid"])) != 1)
                             echo '<input type="text" data-pid="'.$dsatz["p_id"].'" value="'.$dsatz["count"].'" maxlength="1" size="1" placeholder="1" class="chg center" />';
                         else
