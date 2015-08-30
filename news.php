@@ -9,7 +9,7 @@
 <?php require("content/top2.php"); ?>
 
 <main>
-    <h1 class="superheadline">NEWS</h1>
+    <h1 class="superduperheadline">NEWS</h1>
 <?php
     foreach($item->news_by_nid() as $dsatz)
     {

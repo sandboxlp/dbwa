@@ -148,6 +148,8 @@ if(!$loggedin) {
         <p><a class="invisible"><button class="btn" id="changeData">Daten &auml;ndern</button></a></p>
         <p><a class="invisible"><button class="btn" id="saveData" style="display: none;">Speichern</button></a></p>
     </div>
+    <?php include("content/nav_boxes/home.php"); ?>
+    <?php include("content/nav_boxes/bill.php"); ?>
 </main>
 
 <?php require("content/bottom.php"); ?>

@@ -20,7 +20,7 @@
 <?php require("content/top2.php"); ?>
 
     <main>
-        <h1 class="superheadline">EVENTS</h1>
+        <h1 class="superduperheadline">EVENTS</h1>
 
         <?php
         foreach($item->events_by_eid() as $dsatz)

@@ -12,7 +12,7 @@
 ?>
 
 <main>
-    <h1 class="superheadline">FOTOS - <?php echo strtoupper($album["title"]); ?></h1>
+    <h1 class="superduperheadline">FOTOS - <?php echo strtoupper($album["title"]); ?></h1>
     <?php
     $not_files = array(".","..");
 

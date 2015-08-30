@@ -197,6 +197,8 @@
             }
         ?>
     </div>
+    <?php include("content/nav_boxes/home.php"); ?>
+    <?php include("content/nav_boxes/account.php"); ?>
 </main>
 
 <?php require("content/bottom.php"); ?>

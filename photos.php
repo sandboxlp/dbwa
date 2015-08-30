@@ -10,7 +10,7 @@
 <?php require("content/top2.php"); ?>
 
 <main>
-    <h1 class="superheadline">FOTOS</h1>
+    <h1 class="superduperheadline">FOTOS</h1>
     <?php
     foreach($item->albums_by_date() as $dsatz) {                                                                        /** LADEN AUF AJAX AUSLAGERN */ ?>
         <a href="<?php echo 'album.php?a_id=' . $dsatz["a_id"]; ?>" class="invisible">
