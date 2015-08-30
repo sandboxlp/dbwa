@@ -181,4 +181,30 @@ class order {
         else
             return false;
     }
+
+    public function getBillsToServe() {
+        $res = $this->db->query("SELECT * FROM `bills` WHERE `serve` = 1;");
+        if($res->num_rows)
+            return $res;
+        else
+            return false;
+    }
+
+    public function getProductsToServe($bid) {
+        $res = $this->db->query("SELECT * FROM `bills_products` WHERE `b_id` = ".$bid." AND `served` = 0;");
+        if($res->num_rows)
+            return $res;
+        else
+            return false;
+
+    }
+
+    public function getBillstoPay() {
+        $res = $this->db->query("SELECT * FROM `bills` WHERE `serve` = 3;");
+        if($res->num_rows)
+            return $res;
+        else
+            return false;
+
+    }
 }
