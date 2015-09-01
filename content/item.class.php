@@ -182,7 +182,7 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
         $mypos = 0;
 
-        while($result_array[$mypos]["m_id"] != $mid){
+        while($result_array[$mypos]["m_id"] != $mid && $mypos < count($result_array)) {
             $mypos++;
         }
 
@@ -198,7 +198,7 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
         $mypos = 0;
 
-        while($result_array[$mypos]["m_id"] != $mid){
+        while($result_array[$mypos]["m_id"] != $mid && $mypos < count($result_array)){
             $mypos++;
         }
 
@@ -206,5 +206,13 @@ class item { //(TO GET) ALL ABOUT ITEMS
             return $result_array[$mypos - 1]["m_id"];
         else
             return $result_array[count($result_array) - 1]["m_id"];
+    }
+
+    public function pizzaIngredients() {
+        $res = $this->db->query("SELECT * FROM `pizza_ingredients`;");
+        if(mysqli_num_rows($res) > 0)
+            return $res;
+        else
+            return "Test";
     }
 }

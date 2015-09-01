@@ -1,6 +1,12 @@
 <?php require("content/top.php"); ?>
 
 <?php
+$products = $item->products_where_mid_by_pos($_GET["id"]);
+if(empty($products[0]["p_id"])) {
+    header("Location: index.php");
+    die();
+}
+
 if(isset($_GET["id"])) {
     $category = $item->menu_categories_where_mid($_GET["id"]);
     ?>
@@ -70,25 +76,26 @@ if(isset($_GET["id"])) {
                 <th class="center">Best.</th>
             </tr>
         <?php
-            $products = $item->products_where_mid_by_pos($_GET["id"]);
-            if(empty($products[0]["p_id"]))
-                header("Location: index.php");
-
             foreach($products as $dsatz)
             { ?>
                 <tr>
                     <td><?php echo $dsatz["title"]; ?></td>
+                    <?php if($dsatz["creator"] == null) { ?>
                     <td class="center" style="width:77px;"><input type="text" id="anz-<?php echo $dsatz["p_id"]; ?>" maxlength="1" size="1" placeholder="1" class="center" /></td>
                     <td class="center" style="width:137px;">€ <?php echo $dsatz["price"]; ?></td>
                     <td class="center" style="width:88px;"><input type="button" data-id="<?php echo $dsatz["p_id"]; ?>" class="add" value=" + " /></td>
+                    <?php }
+                    else { ?>
+                    <td class="center" colspan="3" style="width: 322px;"><input type="button" onclick="window.location.href='<?php echo $dsatz["creator"]; ?>';" value="selbst erstellen" style="display:inline-block; width:100%;"/></td>
+                    <?php } ?>
                 </tr>
             <?php }
         ?>
             </table>
-        <div style="float:right; width: "100%;"></div>
         <br/><br/>
-        <?php include("content/nav_boxes/home.php"); ?>
-        <?php include("content/nav_boxes/bill.php"); ?>
+            <?php include("content/nav_boxes/home.php"); ?>
+            <?php include("content/nav_boxes/bill.php"); ?>
+        <br/><p style="clear:left;" class="center"><-- &nbsp; Blättern &nbsp; --></p>
     </main>
 
 <?php

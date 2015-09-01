@@ -1,5 +1,6 @@
 * {
     font-family: Calibri;
+    /*font-size: 1.4rem;*/
 }
 
 #wrapper {
@@ -8,23 +9,31 @@
 }
 
 h1 {
-    color: #e41f0f;
     font-size: 6em;
 }
 
 h2 {
-    color: #e41f0f;
     font-size: 4.5em;
 }
 
-p, td, th, span, span[display=inline-block] {
+h3 {
+    font-size: 3.5em;
+}
+
+h5 {
+    font-size: 2.9em;
+}
+
+h6 {
+    font-size: 2.35em;
+}
+
+p, h4, td, th, span, span[display=inline-block] {
     font-size: 3em;
 }
 
-a {
-    color: #e41f0f;
-}
 label {
+    font-size: 1em;
     font-weight: normal;
 }
 
@@ -34,7 +43,7 @@ input[type=radio], input[type=checkbox] {
     margin-right: 8px;
 }
 
-input[type=button] {
+input[type=button], button {
     border-width: 2px;
 }
 
@@ -138,6 +147,7 @@ a.invisible {
 }
 
 .superduperheadline {
+    color: #e41f0f;
     display: block;
     width: 100%;
     border-bottom: 20px solid #e41f0f;
@@ -190,7 +200,7 @@ a.invisible {
     border-radius: 20px;
 }
 
-.red {
+.red, a {
     color: #e41f0f;
 }
 
@@ -199,7 +209,7 @@ a.invisible {
 /* */
 
 .btn {
-    font-size: 1em;
+   font-size: 1em;
 }
 
 .btn-danger {

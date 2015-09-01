@@ -305,4 +305,11 @@ class user {
         else
             return "false";
     }
+
+    public function checkCurrent() {
+        if(!empty($_SESSION["uid"]) && !empty($_SESSION["token"]))
+            if($this->checkToken($_SESSION["uid"], $_SESSION["token"]))
+                return true;
+        return false;
+    }
 }
