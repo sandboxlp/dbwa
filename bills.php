@@ -131,18 +131,34 @@
             <tr><th width="100%;"></th><th>Anz</th><th>Preis</th></tr>
             <?php
                 $products = $order->getProducts($order->getCurrentBill($_SESSION["uid"]));
+                $total = 0;
                 if(!empty($products)) {
                     foreach($products as $dsatz) {
-                        if($dsatz["served"] == 1)
-                            echo '<tr class="served">';
-                        echo "<tr><td>" . $order->getProductName($dsatz["p_id"]) . "</td><td class=\"center\">";
-                        if($dsatz["served"] == 0 && $order->getBillStatus($order->getCurrentBill($_SESSION["uid"])) != 1)
-                            echo '<input type="text" data-pid="'.$dsatz["p_id"].'" value="'.$dsatz["count"].'" maxlength="1" size="1" placeholder="1" class="chg center" />';
-                        else
-                            echo $dsatz["count"];
-                        echo "</td><td class=\"center\">&euro; " . ($webwirth->priceFormat($dsatz["count"] * $order->getProductPrice($dsatz["p_id"]))) . "</td></tr>";
+                        if($dsatz["p_id"] < 10000) {
+                            if ($dsatz["served"] == 1)
+                                echo '<tr class="served">';
+                            else
+                                echo "<tr>";
+                            echo "<td>" . $order->getProductName($dsatz["p_id"]) . "</td><td class=\"center\">";
+                            if ($dsatz["served"] == 0 && $order->getBillStatus($order->getCurrentBill($_SESSION["uid"])) != 1)
+                                echo '<input type="text" data-pid="' . $dsatz["p_id"] . '" value="' . $dsatz["count"] . '" maxlength="1" size="1" placeholder="1" class="chg center" />';
+                            else
+                                echo $dsatz["count"];
+                            echo "</td><td class=\"center\">&euro; " . ($webwirth->priceFormat($dsatz["count"] * $order->getProductPrice($dsatz["p_id"]))) . "</td></tr>";
+                            $total += $dsatz["count"] * $order->getProductPrice($dsatz["p_id"]);
+                        }
+                        elseif($dsatz["p_id"] < 50000) {
+                            if ($dsatz["served"] == 1)
+                                echo '<tr class="served">';
+                            else
+                                echo "<tr>";
+                            echo "<td>" . $order->getPizzaTitle($dsatz["p_id"]) . "</td><td class=\"center\">".$dsatz["count"]."</td>";
+                            echo "<td class=\"center\">&euro; " . ($webwirth->priceFormat($dsatz["count"] * $order->getPizzaPrice($dsatz["p_id"]))) . "</td></tr>";
+                            $total += $dsatz["count"] * $order->getPizzaPrice($dsatz["p_id"]);
+                        }
                     }
                 }
+                echo '<tr><td class="right bold" colspan="2">Gesamt</td><td class="center">&euro; '.$webwirth->priceFormat($total).'</td></tr>';
             ?>
         </table>
 

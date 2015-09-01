@@ -25,7 +25,7 @@ class order {
 
         $res = $this->db->query("SELECT `b_id` FROM `bills` WHERE `u_id` = ".$uid." AND `status` IN (0,2);");
 
-        if($res->num_rows) {
+        if(mysqli_num_rows($res)) {
             $dsatz = mysqli_fetch_assoc($res);
             $bid = $dsatz["b_id"];
 
@@ -51,7 +51,7 @@ class order {
 
             $res = $this->db->query("SELECT `b_id` FROM `bills` WHERE `u_id` = " . $uid . " AND `status` = 1;");
 
-            if ($res->num_rows) {
+            if (mysqli_num_rows($res)) {
                 $dsatz = mysqli_fetch_assoc($res);
                 $bid = $dsatz["b_id"];
 
@@ -78,7 +78,7 @@ class order {
                 $res = $this->db->query("INSERT INTO `bills`(`u_id`) VALUES(" . $uid . ");");
 
                 if (!$res) {
-                    return "false";
+                    return "0";
                     die();
                 }
 
@@ -205,6 +205,70 @@ class order {
             return $res;
         else
             return false;
+
+    }
+
+    public function orderPizza($uid, $size, $takeaway, $cut, $ing) {
+        if($this->db->query("INSERT INTO `pizzas`(`size`, `cut`, `takeaway`) VALUES(".$size.",".$cut.",".$takeaway.")")) {
+            $res = $this->db->query("SELECT `p_id` FROM `pizzas` ORDER BY `p_id` DESC");
+            $pid = mysqli_fetch_assoc($res)["p_id"];
+            foreach($ing as $ingr) {
+                if(!$this->db->query("INSERT INTO `pizzas_ingredients`(`p_id`, `i_id`) VALUES(".$pid.",".$ingr.")"))
+                    return "INSERT INTO `pizzas_ingredients`(`p_id`, `i_id`) VALUES(".$pid.",".$ingr.")";
+            }
+            return $this->orderProduct($uid, $pid, 1);
+        }
+        else
+            return "0";
+    }
+
+    public function getPizzaTitle($pid) {
+        $res = $this->db->query("SELECT * FROM `pizzas` WHERE `p_id` = ".$pid.";");
+        $pizza = mysqli_fetch_assoc($res);
+        $title = "";
+        if(!$pizza["cut"])
+            $title .= "ungeschnittene ";
+        if($pizza["size"] == 1)
+            $title .= "kl. ";
+        $title.= "Pizza ";
+        $res = $this->db->query("SELECT `title` FROM `pizza_ingredients` WHERE `i_id` IN (SELECT `i_id` FROM `pizzas_ingredients` WHERE `p_id` = ".$pid.")");
+        if(mysqli_num_rows($res) > 0) {
+            $ings = array();
+            while($ing = mysqli_fetch_assoc($res)["title"])
+                array_push($ings, $ing);
+            if(count($ings) > 1) {
+                $title.="mit ";
+                for ($x = 0; $x + 1 < count($ings); $x++) {
+                    if($x == 0)
+                        $title .= $ings[$x];
+                    else
+                        $title .= ", ".$ings[$x];
+                }
+                $title.=" und " . $ings[count($ings)-1];
+            }
+            else
+                $title.="mit ".$ings[0];
+        }
+        else
+            $title.="Margherita";
+        if($pizza["takeaway"])
+            $title.=" zum Mitnehmen";
+
+        return $title;
+    }
+
+    public function getPizzaPrice($pid) {
+        $price = 0.00;
+        $res = $this->db->query("SELECT * FROM `pizzas` WHERE `p_id` = ".$pid.";");
+        $pizza = mysqli_fetch_assoc($res);
+        if($pizza["size"] == 1)
+            $price += 3.90;
+        elseif($pizza["size"] == 2)
+            $price += 4.90;
+        $res = $this->db->query("SELECT `title` FROM `pizza_ingredients` WHERE `i_id` IN (SELECT `i_id` FROM `pizzas_ingredients` WHERE `p_id` = ".$pid.")");
+        $price += mysqli_num_rows($res)*0.40;
+
+        return $price;
 
     }
 }

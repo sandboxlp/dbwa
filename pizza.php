@@ -38,8 +38,43 @@
 </style>
 <script>
     $(document).ready(function(){
-        $("#add").ready(function(){
-            
+        $("#add").click(function(){
+            var size = 0;
+            if($("#std").prop("checked"))
+                size = 2;
+            else
+                size = 1;
+            var takeaway = $("#takeaway").prop("checked");
+            var cut = $("#cut").prop("checked");
+            var ingredients = [];
+            var y = 0;
+            for(var x=1; true; x++) {
+                if($("#pI"+x).length) {
+                    if($("#pI"+x).prop("checked")) {
+                        ingredients[y] = x;
+                        y++;
+                    }
+                }
+                else
+                    break;
+            }
+            $.ajax({
+                url:"apis/orderPizza.api.php",
+                type:"POST",
+                data:"size=" + size + "&takeaway=" + takeaway + "&cut=" + cut + "&ing=" + ingredients,
+                success:function(data){
+                    if(data != "0") {
+                        $("#add").animate({backgroundColor: "#00A300", borderColor: "#00A300"}, 500);
+                        $("#add").animate({backgroundColor: "#E41F0F", borderColor: "#DDD"}, 500);
+                    }
+                    else
+                        alert("Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut!\n" + data);
+                },
+                error:function(){
+                    alert("Ein unbekannter Fehler ist aufgetreten.");
+                }
+
+            });
         });
     });
 </script>
@@ -52,7 +87,7 @@
         <span class="smaller" style="clear:both; width:100%; display:inline-block;">hausgemachter Hefeteig, Tomatensauce, K&auml;se, Oregano</span><br/>
         <div style="width: 100%; clear: both;">
             <table style="float:left; margin-right: 6em;" class="noTable">
-                <tr><td><input type="radio" id="big" name="size" value="big" checked="checked" /><label for="big">Standardpizza (&euro;4,90)</label></td></tr>
+                <tr><td><input type="radio" id="std" name="size" value="std" checked="checked" /><label for="std">Standardpizza (&euro;4,90)</label></td></tr>
                 <tr><td><input type="radio" id="small" name="size" value="small" /><label for="big">kleine Pizza (&euro;3,90)</label></td></tr>
             </table>
             <table style="float:left;" class="noTable">
@@ -86,6 +121,10 @@
         </table>
         <div style="height:3em; clear:both;";> </div>
         <button id="add" class="btn btn-danger">Auf die Bestellliste</button>
+        <br/><br/>
+        <?php include("content/nav_boxes/home.php"); ?>
+        <?php include("content/nav_boxes/foods.php"); ?>
+        <?php include("content/nav_boxes/bill.php"); ?>
     </div>
 </main>
 
