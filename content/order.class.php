@@ -160,7 +160,7 @@ class order {
 
     public function getOldBills($uid) {
         $res = $this->db->query("SELECT * FROM `bills_old` WHERE `u_id` = ".$uid." ORDER BY `paid` DESC;");
-        if($res->num_rows)
+        if(mysqli_num_rows($res) > 0)
             return $res;
         else
             return false;
@@ -176,7 +176,7 @@ class order {
 
     public function getOldBillProducts($bid) {
         $res = $this->db->query("SELECT * FROM `bills_products_old` WHERE `b_id` = ".$bid.";");
-        if($res->num_rows)
+        if(mysqli_num_rows($res) > 0)
             return $res;
         else
             return false;
@@ -184,7 +184,7 @@ class order {
 
     public function getBillsToServe() {
         $res = $this->db->query("SELECT * FROM `bills` WHERE `serve` = 1;");
-        if($res->num_rows)
+        if(mysqli_num_rows($res) > 0)
             return $res;
         else
             return false;
@@ -192,7 +192,7 @@ class order {
 
     public function getProductsToServe($bid) {
         $res = $this->db->query("SELECT * FROM `bills_products` WHERE `b_id` = ".$bid." AND `served` = 0;");
-        if($res->num_rows)
+        if(mysqli_num_rows($res) > 0)
             return $res;
         else
             return false;
@@ -201,7 +201,7 @@ class order {
 
     public function getBillstoPay() {
         $res = $this->db->query("SELECT * FROM `bills` WHERE `serve` = 3;");
-        if($res->num_rows)
+        if(mysqli_num_rows($res) > 0)
             return $res;
         else
             return false;
