@@ -191,7 +191,7 @@ class order {
     }
 
     public function getProductsToServe($bid) {
-        $res = $this->db->query("SELECT * FROM `bills_products` WHERE `b_id` = ".$bid." AND `status` = 0;");
+        $res = $this->db->query("SELECT * FROM `bills_products` WHERE `b_id` = ".$bid." AND `served` = 0;");
         if(mysqli_num_rows($res) > 0)
             return $res;
         else
