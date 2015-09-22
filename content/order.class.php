@@ -259,7 +259,7 @@ class order {
 
     public function getPizzaPrice($pid) {
         $price = 0.00;
-        $res = $this->db->query("SELECT * FROM `pizzas` WHERE `p_id` = ".$pid.";");
+        $res = $this->db->query("SELECT * FROM `pizzas` WHERE `p_id` = " . $pid.";");
         $pizza = mysqli_fetch_assoc($res);
         if($pizza["size"] == 1)
             $price += 3.90;
@@ -270,5 +270,9 @@ class order {
 
         return $price;
 
+
+
     }
+
+
 }

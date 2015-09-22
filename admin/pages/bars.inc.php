@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="de">
-
+<?php
+include('../../content/db.php');
+include('../../content/item.class.php');
+include('../../content/order.class.php');
+include('../../content/user.class.php');
+include('../../content/webwirth.class.php');
+$item = new item($db);
+$order = new order($db);
+$user = new user($db);
+$webwirth = new webwirth();
+?>
 <head>
 
     <meta charset="utf-8">

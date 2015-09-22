@@ -10,16 +10,6 @@ class item { //(TO GET) ALL ABOUT ITEMS
 
     private $db;
 
-    /** MECKER VON TOBI:
-     *  1. SQL-BEFEHLE WERDEN GROß GESCHRIEBEN!
-     *  2. ALLES WAS IN DIE KLASSE REIN KOMMT, WIRD ESCAPED (Du weißt nie wie blöd der User ist)
-     *
-     *  RÜCKMECKER VON SANDY:
-     *  1. WENN ES SINN MACHT, MACH ICHS EH! GIBT MIR ZEIT ZUM LERNEN!
-     *  2. WENN ICH GEWUSSTE HABE, WAS DAS IST, HÄTT ICHS GEMACHT!
-     *  3. WENN DU WAS FÜR MICH KOMPLETT NEUES EINBRINGT, ERKLÄRS BITTE - DANKE!
-     */
-
     public function __construct($db){
         $this->db = $db;
     }
