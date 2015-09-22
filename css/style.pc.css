@@ -1,0 +1,125 @@
+#wrapper {
+    margin: 0 50px;
+}
+
+.red, h1, h2, h3, h4, h5, h6 {
+    color: #e41f0f;
+}
+
+/* -------------- */
+/* --- FOOTER --- */
+/* -------------- */
+
+footer {
+    font-size:1.5em;
+    min-height: 25px;
+    width: 100%;
+    float: right;
+}
+
+footer img {
+    margin-top: 20px;
+    background-attachment: scroll;
+}
+
+footer span {
+    padding:2px 0px;
+    display:inline-block;
+}
+
+footer button {
+    font-size:0.9em;
+    border:1px solid black;
+    border-radius:5px;
+}
+
+/* ----------------- */
+/* --- SONSTIGES --- */
+/* ----------------- */
+
+a.invisible {
+    text-decoration: none;
+    color: black;
+}
+
+.superheadline {
+    display: block;
+    width: 100%;
+    border-bottom: 10px solid #e41f0f;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.superduperheadline {
+    color: #e41f0f;
+    display: block;
+    width: 100%;
+    border-bottom: 20px solid #e41f0f;
+    text-align: center;
+    margin: 30px 0px;
+    padding: 30px;
+    font-weight: bold;
+}
+
+.home_img {
+    margin: 0px 0px 2.25% 2.25%;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.row {
+    width: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+.center a {
+    display: block;
+}
+
+.black {
+    color: black;
+}
+
+.banner-text {
+    width: 95%;
+    margin: 20px 2.25% auto 2.25%;
+    background-color: #e41f0f;
+    float:left;
+}
+
+.white {
+    color: white;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.button {
+    border-radius: 20px;
+}
+
+.red, a {
+    color: #e41f0f;
+}
+
+.right {
+    text-align: right;
+}
+
+/* */
+/* */
+/* */
+
+.btn {
+    font-size: 1em;
+}
+
+.btn-danger {
+    background-color: #e41f0f;
+}
